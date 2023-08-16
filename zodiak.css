@@ -1,0 +1,84 @@
+body{
+    background-image: url('gambar/bg1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 3rem;
+}
+
+.container{
+    margin: auto;
+    background-color: rgba(127, 127, 205, 0.7);
+    width: 80%;
+    min-height: 300px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.header_text{
+    text-align: center;
+    color: rgb(4, 4, 35);
+    font-size: large;
+    padding: 1rem;
+    overflow: hidden;
+}
+input, button{
+    width: 300px;
+    height: 40px;
+    border: 1px solid rgb(4, 4, 35);
+    border-radius: 10px;
+    padding: 0 5px;
+    transform: scale(0.95);
+}
+input{
+    color: rgb(4, 4, 35);
+    margin: 0 5px;
+    text-align: center;
+}
+button{
+    background-color: rgba(66, 66, 193, 0.7);
+    color: white;
+    margin: 10px;
+    transition: all 0.2s ease;
+}
+button:active{
+    transform: scale(0.95);
+}
+button:hover{
+    background-color: rgba(52, 52, 172, 0.7);
+    cursor: pointer;
+}
+input:hover{
+    color: white;
+    background-color: rgba(66, 66, 193, 0.7);
+    cursor: pointer;
+}
+#tanggal_lahir:hover{
+    color: rgb(4, 4, 35);
+    background-color: rgba(66, 66, 193, 0.7);
+    cursor: text;
+}
+.card_data{
+    margin: 0 5rem;
+    background-color: rgba(100, 100, 202, 0.7);
+    border-radius: 20px;
+    padding: 1rem;
+    text-align: center;
+
+}
+.card_hasil{
+    margin: 1rem 5rem;
+    background-color: rgba(84, 84, 205, 0.7);
+    border-radius: 20px;
+    padding: 1rem;
+    text-align: center;
+}
+#gambar_zodiak{
+    width: 170px;
+    border-radius: 10px;
+    margin: 1rem;
+}
+#hasil_zodiak{
+    font-size:xx-large;
+    font-weight: bold;
+}

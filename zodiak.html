@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Aplikasi Zodiak</title>
+        <link href="zodiak.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="header_text">
+                <h1>Tebak Zodiak</h1>
+            </div>
+            <div class="card_data">
+                <input type="text" id="nama" placeholder="Masukkan Nama Kamu">
+                <input type="date" id="tanggal_lahir">
+                <button type="button" onclick="cari_zodiak()">Cari Zodiak</button>
+            </div>
+            <div class="card_hasil">
+                <div id="hasil_nama"></div>
+                <div id="hasil_usia"></div>
+                <img id="gambar_zodiak">
+                <div id="hasil_zodiak"></div>
+                <div id="hasil_keterangan_zodiak"></div>
+            </div>
+        </div>
+    </body>
+    <script>
+        //Format Penulisan Tanggal Data Zodiak dd/mm
+        var data_zodiak = [
+            {
+                "zodiak": "Aquarius",
+                "tanggal_awal": "20/01",
+                "tanggal_akhir": "18/02",
+                "gambar": "Aquarius.png",
+                "profil": "Aquarius lahir tanggal 20 Januari " +
+                    "sampai 18 Februari. Lambang Aquarius adalah" +
+                    " penimbang air dan elemen angin. " +
+                    "Ciri Aquarius adalah suka kebebasan " +
+                    "dan tidak suka diatur," +
+                    " mereka memiliki banyak ide atau pikiran " +
+                    "sendiri dalam menjalani sebuah kehidupan, " +
+                    "karier, keluarga dan asmaranya. " +
+                    "Karena sifat bebasnya ini, maka Aquarius " +
+                    "memiliki pemikiran yang terbuka, " +
+                    "wawasan yang luas dan bijaksana. " +
+                    "Karakter Aquarius adalah penuh kharisma " +
+                    "sehingga menarik kehidupan orang lain."
+            },
+            {
+                "zodiak": "Pisces",
+                "tanggal_awal": "19/02",
+                "tanggal_akhir": "20/03",
+                "gambar": "Pisces.png",
+                "profil": "Pisces lahir 19 Februari " +
+                    "sampai 20 Maret. Pisces memiliki " +
+                    "lambang ikan dan elemen air. " +
+                    "Pisces memiliki ciri yang mudah " +
+                    "terharu dan labil. Karakternya " +
+                    "dikenal sebagai tanda yang yang " +
+                    "cantik luar dan dalam. " +
+                    "Pisces mudah sekali berempati, " +
+                    "menempatkan dirinya di posisi " +
+                    "orang lain sehingga ia bisa lebih " +
+                    "memahami dan merasakan penderitaan " +
+                    "orang lain. Seorang Pisces " +
+                    "juga sangat kreatif, peka " +
+                    "terhadap orang lain dan " +
+                    "tidak pernah mementingkan dirinya sendiri."
+            },
+            {
+                "zodiak": "Aries",
+                "tanggal_awal": "21/03",
+                "tanggal_akhir": "19/04",
+                "gambar": "Aries.png",
+                "profil": "Lahir di tanggal 21 Maret sampai 19 April, adalah pemilik zodiak Aries. Aries memiliki lambang domba dan berelemen api. Sifat murah hati dari Aries sering kali menjadikannya sosok panutan. Meskipun memiliki sifat yang keras, Aries selalu rela untuk berkorban bagi orang terdekatnya. Tak hanya itu, karakter Aries yang mudah bergaul dengan banyak orang, membuatnya memiliki kesempatan untuk sukses yang tinggi. Kamu cocok untuk bekerja di berbagai banyak bidang."
+            },
+            {
+                "zodiak": "Taurus",
+                "tanggal_awal": "20/04",
+                "tanggal_akhir": "20/05",
+                "gambar": "Taurus.png",
+                "profil": "Lahir di tanggal 20 April sampai 20 Mei ini adalah pemilik zodiak Taurus. Memiliki lambang Banteng atau Sapi Jantan. Taurus berelemen tanah. Taurus memiliki sifat yang cerdas dan memahami semua konsekuensi atas pilihan hidupnya. Taurus mudah marah, apabila kemarahannya memuncak maka jangan pernah mencoba menasehatinya karena justru Taurus semakin membencinya. Menjadi jurnalistik, pelukis, dan pekerjaan yang berhubungan dengan seni sangat cocok untuk Taurus."
+            },
+            {
+                "zodiak": "Gemini",
+                "tanggal_awal": "21/05",
+                "tanggal_akhir": "20/06",
+                "gambar": "Gemini.png",
+                "profil": "Lahir di tanggal 21 Mei hingga 20 Juni adalah pemilik zodiak Gemini. Memiliki lambang saudara kembar dan elemen angin. Sifatnya yang tidak mudah ditebak, seringkali membuat bingung orang terdekatnya. Kecerdasan Gemini adalah daya tarik utama pemilik zodiak ini. Pesonanya yang menawan membuatnya banyak dikagumi oleh orang terdekatnya, meskipun sering bersikap kebalikannya di depan orang tersayangnya sekali pun. Gemini memiliki ciri tidak mudah puas dengan hidupnya, ia akan selalu mencari yang terbaik untuk dirinya."
+            },
+            {
+                "zodiak": "Cancer",
+                "tanggal_awal": "21/06",
+                "tanggal_akhir": "22/07",
+                "gambar": "Cancer.png",
+                "profil": "Lahir di tanggal 21 Juni hingga 21 Juli adalah pemilik zodiak Cancer. Lambang dari zodiak ini adalah kepiting. Sifat Cancer adalah memiliki welas asih yang tinggi. Ia rela melakukan apa saja agar orang terdekatnya bahagia. Gemar mengejar hal kecil dan mengabaikan hal-hal besar adalah ciri dari Cancer. Tak hanya itu, Cancer memiliki sifat yang setia. Ia sangat memedulikan pasangan dan keluarga. Kebahagiaan orang terdekatnya adalh sumber bahagianya."
+            },
+            {
+                "zodiak": "Leo",
+                "tanggal_awal": "23/07",
+                "tanggal_akhir": "22/08",
+                "gambar": "Leo.png",
+                "profil": "Lahir di tanggal 22 Juli hingga 22 Agustus adalah pemilik zodiak Leo. Lambang zodiak Leo adalah singa dan berelemen api. Tak heran, Leo memiliki sifat yang suka memerintah. Ia tak segan marah kepada siapa saja yang menghalangi hidupnya. Bagi Leo memberi nasihat kepada orang lain adalah kesenangan baginya, meskipun belum tentu ia menjalaninya. Leo sangat cocok dijadikan seorang pemimpin, kemampuannya beradaptasi membuatnya bisa bekerja di berbagai bidang."
+            },
+            {
+                "zodiak": "Virgo",
+                "tanggal_awal": "23/08",
+                "tanggal_akhir": "22/09",
+                "gambar": "Virgo.png",
+                "profil": "Lahir di tanggal 23 Agustus hingga 21 September adalah pemilik zodiak Virgo. Lambang zodiak Virgo adalah sang perawan dan memiliki elemen tanah. Sifat Virgo adalah penurut dan berhati lembut. Ia menyukai ketenangan. Ciri khas Virgo adalah sifat egois dan keras kepalanya. Ia selalu mengutamakan kepentingannya dan tidak peduli dengan orang lain. Meskipun demikian, Virgo sangat teliti dan bisa menyimpan rahasia dengan baik. Tak heran, Virgo adalah tujuan untuk teman terdekatnya saat butuh didengarkan."
+            },
+            {
+                "zodiak": "Libra", 
+                "tanggal_awal": "23/09",
+                "tanggal_akhir": "22/10",
+                "gambar": "Libra.png",
+                "profil": "Lahir di tanggal 22 September 22 Oktober adalah pemilik zodiak Libra. Lambang zodiak Libra adalah timbangan dan berelemen udara. Timbangan mewakili sisi kehidupan yang seimbang, teratur, setara, dan adil. Ini sangat merepresentasikan pribadi Libra. Ia tahu cara menemukan keseimbangan dan harmoni dalam hidup. Dalam hal apapun, Libra akan selalu menjadi sosok yang seimbang dan melakukan hal sama rata. Selain itu, Libra juga dikenal sebagai penasihat yang baik."
+            },
+            {
+                "zodiak": "Scorpio",
+                "tanggal_awal": "23/10",
+                "tanggal_akhir": "21/11",
+                "gambar": "Scorpio.png",
+                "profil": "Scorpio lahir di tanggal 23 Oktober sampai 21 November. Lambang zodiak Scorpio adalah kalajengking dan memiliki elemen air. Sifat Scorpio dikenal sebagai sosok yang tekun, ambisius, dan pekerja keras. Ia juga sangat dermawan, rendah hati dan setia kawan. Karakter yang paling kuat dari Scorpio adalah intuisinya yang selalu tepat dan selalu mengikuti kata hati. Seorang Scorpio dapat dengan mudah membuat keputusan karena kekuatan instingnya ini."
+            },
+            {
+                "zodiak": "Sagitarius",
+                "tanggal_awal": "22/11",
+                "tanggal_akhir": "21/12",
+                "gambar": "Sagitarius.png",
+                "profil": "Sagitarius lahir tanggal 22 November sampai 21 Desember. Sagitarius memiliki lambang pemanah dan berelemen api. Karakter Sagitarius memiliki kepribadian yang bebas dan suka berpetualang. Sagitarius punya kemampuan membuat hal paling membosankan menjadi hal yang paling menyenangkan. Sisi kepribadian yang hangat membuat orang lain merasa nyaman saat di dekatnya."
+            },
+            {
+                "zodiak": "Capricorn",
+                "tanggal_awal": "22/12",
+                "tanggal_akhir": "19/01",
+                "gambar": "Capricorn.png",
+                "profil": "Lahir tanggal 22 Desember sampai 19 Januari adalah pemilik zodiak Capricorn. Ia memiliki lambang kambing laut dan elemen tanah. Karakter Capricorn sangat realistis dan berpikir kritis. Ciri utamanya adalah suka pekerja keras untuk mencapai tujuan hidupnya. Capricorn memiliki tekad yang kuat untuk melakukan segala sesuatu."
+            }
+        ];
+        // Data Array = diawali dengan tanda [ diakhiri dengan tanda ] 
+        // setiap nilai di pisahkan dengan ,
+        var monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+        console.log(data_zodiak);
+
+        // Fungsi Cari Zodiak
+        function cari_zodiak() {
+            var nama = document.getElementById('nama').value;
+            var tanggallahir = document.getElementById('tanggal_lahir').value;
+
+            ////Hitung Usia\\\\
+            var today = new Date(); //Mengambil Tanggal Hari Ini Dalam Format Date Javascript
+            var birthday = new Date(tanggallahir); //Mengambil Tanggal Sesuai Inputan Tanggal Lahir Dalam Format Date Javascript
+
+            // Kondisi Jika Bulan Dan Tanggal Sekarang Lebih Kecil Dari Bulan Dan Tanggal Lahir
+            var year = 0;
+            if (today.getMonth() < birthday.getMonth()) {
+                year = 1;
+            } else if ((today.getMonth() == birthday.getMonth()) && today.getDate() < birthday.getDate()) {
+                year = 1;
+            }
+
+            var age = today.getFullYear() - birthday.getFullYear() - year;
+
+            if (age < 0) {
+                age = 0;
+            }
+            ////Hitung Usia\\\\
+
+            if (nama == '') {
+                alert('Masukkan Nama Terlebih Dahulu');
+            } else if (tanggal_lahir == '') {
+                alert('Masukkan Tanggal Lahir Terlebih Dahulu');
+            } else {
+                var hasil_nama = "Haloo <b>" + nama + "</b>";
+                var hasil_usia = "Kamu lahir pada tanggal <b>" + birthday.getDate() + " " + monthNames[birthday.getMonth()] + " " + birthday.getFullYear() + "</b> Dan Usia Kamu Sekarang <b>" + age + "</b> Tahun";
+                document.getElementById('hasil_nama').innerHTML = hasil_nama;
+                document.getElementById('hasil_usia').innerHTML = hasil_usia;
+
+                var b_lahir = birthday.getMonth() + 1;
+                var t_lahir = birthday.getDate();
+
+                for (var i = 0; i < data_zodiak.length; i++) {
+                    var arr_t_awal = data_zodiak[i].tanggal_awal.split('/');
+                    var arr_t_akhir = data_zodiak[i].tanggal_akhir.split('/');
+
+                    if (b_lahir == parseInt(arr_t_awal[1]) && t_lahir >= arr_t_awal[0] || b_lahir == parseInt(arr_t_akhir[1]) && t_lahir <= arr_t_akhir[0]) {
+                        document.getElementById('gambar_zodiak').src = "Logo Zodiak/" + data_zodiak[i].gambar;
+                        document.getElementById('hasil_zodiak').innerHTML = data_zodiak[i].zodiak;
+                        document.getElementById('hasil_keterangan_zodiak').innerHTML = data_zodiak[i].profil;
+                    }
+                }
+
+            }
+        }
+
+    </script>
+    </html>
